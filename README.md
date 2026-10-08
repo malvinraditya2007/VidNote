@@ -126,8 +126,6 @@ python vidnote.py download-models --device gpu # atau cpu / all
 
 ## Pemakaian
 
-### Antarmuka web (jalur utama)
-
 ```powershell
 python vidnote.py serve --open      # buka browser otomatis ke http://127.0.0.1:8765
 ```
@@ -140,31 +138,7 @@ Alurnya tiga langkah:
 
 Server hanya mengikat `127.0.0.1` dan menyuntik token sesi ke halaman; buka selalu lewat URL `serve`, bukan membuka file HTML langsung. Satu video diproses dalam satu waktu.
 
-### CLI
-
-```powershell
-# Pipeline lengkap
-python vidnote.py run "D:\video\rapat.mp4" --device gpu
-python vidnote.py run "https://youtu.be/VIDEO_ID" --device cpu --lang id
-
-# Opsi berguna
---lang auto|id|en       # default auto (deteksi dari 3 potongan, dibatasi id/en)
---num-speakers N        # paksa jumlah pembicara jika deteksi otomatis keliru
---no-summary / --no-burn
---yes                   # setuju otomatis turun model saat VRAM habis
-
-# Tanpa internet sama sekali (model harus sudah diunduh, link YouTube ditolak)
-python vidnote.py --offline run "D:\video\rapat.mp4" --device gpu
-
-# Jika YouTube minta verifikasi "not a bot": pakai cookie login dari browser
-# (tutup browser-nya dulu agar database cookie bisa dibaca)
-python vidnote.py run "https://youtu.be/VIDEO_ID" --device gpu --cookies-from-browser chrome
-python vidnote.py run "https://youtu.be/VIDEO_ID" --device gpu --cookies-file cookies.txt
-```
-
-Browser yang didukung untuk `--cookies-from-browser`: chrome, chromium, edge, firefox, brave, opera, vivaldi, safari.
-
-Hasil ada di `output/<judul>-<waktu>/`:
+Selain diunduh lewat *browser*, hasil juga otomatis tersimpan di folder `output/<judul>-<waktu>/`:
 
 | File | Isi |
 | --- | --- |
@@ -176,8 +150,6 @@ Hasil ada di `output/<judul>-<waktu>/`:
 | `asr.json`, `diarization.json` | Data mentah untuk debug |
 
 Waktu proses video 4,5 menit di RTX 4050 Laptop: **GPU 2,1 menit**, **CPU 3,6 menit**. Video lebih panjang dan CPU lebih lemah bisa jauh lebih lama.
-
-Tiap tahap juga bisa dijalankan terpisah untuk tes/A-B: `probe`, `fetch`, `audio`, `asr`, `diarize`, `segment`, `subs`, `burn`, `summarize`. Lihat `python vidnote.py <perintah> --help`.
 
 ## Privasi dan keamanan
 
