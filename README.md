@@ -241,8 +241,6 @@ Rencana: pengguna memilih bahasa output di halaman Sumber, lalu transkrip-baca d
 
 ## Desain & keputusan teknis
 
-> Bagian ini merangkum dokumen perencanaan (sebelumnya `Project_Planning_v4`). Jadi acuan desain; detail implementasi ada di kode.
-
 ### Ruang lingkup
 
 | Aspek | Keputusan |
