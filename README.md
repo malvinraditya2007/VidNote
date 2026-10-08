@@ -102,7 +102,7 @@ brew install python@3.11 ffmpeg ollama deno
 ### 2. Project
 
 ```powershell
-git clone <url-repo-ini> VidNote
+git clone https://github.com/malvinraditya2007/VidNote.git VidNote
 cd VidNote
 py -3.11 -m venv .venv            # Linux/macOS: python3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1      # Linux/macOS: source .venv/bin/activate
