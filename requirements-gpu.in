@@ -1,0 +1,5 @@
+# Extra opsional mode GPU (NVIDIA, Windows/Linux). Tidak perlu CUDA Toolkit.
+# Butuh driver NVIDIA yang mendukung CUDA 12.x (cek: nvidia-smi).
+-r requirements.in
+nvidia-cublas-cu12==12.9.2.10 ; sys_platform == "win32" or sys_platform == "linux"
+nvidia-cudnn-cu12==9.27.0.42 ; sys_platform == "win32" or sys_platform == "linux"

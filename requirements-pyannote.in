@@ -1,0 +1,6 @@
+# Extra OPSIONAL: diarization pyannote community-1 (A/B vs sherpa-onnx).
+# Berat (PyTorch + pyannote.audio). Hanya pasang jika ingin mencoba pyannote.
+#   pip install -r requirements-pyannote.txt
+# Perlu token Hugging Face sekali untuk unduh model (lalu bisa offline). Lihat README.
+-r requirements.in
+pyannote.audio==4.0.7

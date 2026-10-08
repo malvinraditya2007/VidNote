@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Data VidNote (jangan pernah di-push: video, transkrip, model).
+# Folder dipertahankan (.gitkeep), isinya diabaikan.
+models/
+work/*
+!work/.gitkeep
+output/*
+!output/.gitkeep
+
+# Secrets
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

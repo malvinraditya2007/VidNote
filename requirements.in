@@ -1,0 +1,12 @@
+# Dependency langsung VidNote (CPU + GPU). Sumber untuk requirements.txt (lockfile).
+# Regenerasi lockfile: lihat README bagian "Update dependency".
+faster-whisper==1.2.1
+ctranslate2==4.8.2
+sherpa-onnx==1.13.8
+# [default] membawa yt-dlp-ejs (solver challenge JS YouTube). Butuh Deno >= 2.3 di PATH.
+yt-dlp[default]==2026.8.19
+yt-dlp-ejs==0.8.0
+# API (Fase 1)
+fastapi==0.142.2
+uvicorn==0.54.0
+python-multipart==0.0.32

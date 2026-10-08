@@ -1,0 +1,45 @@
+[project]
+name = "vidnote"
+version = "0.1.0"
+description = "Video in, notes out. Hardsub, transkrip per pembicara, dan ringkasan — lokal, tanpa API key."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = { file = "LICENSE" }
+authors = [{ name = "VidNote contributors" }]
+keywords = ["whisper", "diarization", "subtitle", "transcription", "local", "offline"]
+
+# Versi dipin ada di requirements*.txt (lockfile dengan hash). Daftar di bawah hanya
+# untuk `pip install .`; untuk reproducible build pakai requirements-*.txt.
+dependencies = [
+    "faster-whisper==1.2.1",
+    "ctranslate2==4.8.2",
+    "sherpa-onnx==1.13.8",
+    "yt-dlp[default]==2026.8.19",
+    "yt-dlp-ejs==0.8.0",
+    "fastapi==0.142.2",
+    "uvicorn==0.54.0",
+    "python-multipart==0.0.32",
+]
+
+[project.optional-dependencies]
+gpu = ["nvidia-cublas-cu12==12.9.2.10", "nvidia-cudnn-cu12==9.27.0.42"]
+dev = ["pytest==9.1.1", "httpx==0.28.1", "uv==0.12.23"]
+
+[project.scripts]
+vidnote = "vidnote:main"
+
+[project.urls]
+Homepage = "https://github.com/your-user/vidnote"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["vidnote"]
+packages = ["backend", "backend.pipeline"]

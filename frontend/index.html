@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VidNote — Video in, notes out.</title>
+  <link rel="stylesheet" href="/style.css">
+  <meta name="vidnote-token" content="__VIDNOTE_TOKEN__">
+</head>
+<body>
+  <header>
+    <div class="identity">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+      </span>
+      <div class="brand-copy">
+        <h1>VidNote</h1>
+        <p class="tagline">Video in, notes out.</p>
+      </div>
+    </div>
+    <nav class="workflow" aria-label="Alur kerja">
+      <div class="wf-step active" data-step="1"><span class="wf-marker">1</span><span class="wf-label">Sumber</span></div>
+      <div class="wf-step" data-step="2"><span class="wf-marker">2</span><span class="wf-label">Proses</span></div>
+      <div class="wf-step" data-step="3"><span class="wf-marker">3</span><span class="wf-label">Hasil</span></div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ====== VIEW: SUMBER ====== -->
+    <div id="source-view">
+    <div class="page-intro">
+      <p class="eyebrow">CATATAN BARU</p>
+      <h2>Sumber video</h2>
+      <p>Masukkan tautan YouTube atau unggah video, lalu pilih pengaturan proses.</p>
+    </div>
+
+    <div class="workspace">
+      <div class="col-form">
+        <!-- ====== INPUT ====== -->
+        <section id="input-card" class="card">
+          <div class="section-heading">
+            <h3>01 / Sumber video</h3>
+            <span class="hint">Maks. 30 menit</span>
+          </div>
+
+          <div class="source-controls">
+            <div class="tabs" role="tablist">
+              <button class="tab active" data-tab="url" role="tab">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+                Link YouTube
+              </button>
+              <button class="tab" data-tab="upload" role="tab">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+                Unggah file
+              </button>
+            </div>
+
+            <div class="tab-panel" data-panel="url">
+              <label class="field-label" for="url">Tautan video</label>
+              <div class="url-field">
+                <svg class="field-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                <input type="url" id="url" placeholder="Tempel link YouTube di sini…" autocomplete="off">
+                <button type="button" id="paste-url" class="paste-btn">Tempel</button>
+              </div>
+            </div>
+
+            <div class="tab-panel hidden" data-panel="upload">
+              <label id="dropzone" for="file" class="dropzone">
+                <input type="file" id="file" accept=".mp4,.mov,.mkv,.webm" hidden>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m10 11 5 3-5 3v-6Z"/></svg>
+                <span class="dz-copy">
+                  <span id="dropzone-text">Atau, seret file video ke sini</span>
+                  <small>File lokal · Maksimal 1 GB</small>
+                </span>
+                <span class="paste-btn">Pilih file</span>
+              </label>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="section-heading">
+            <h3>02 / Pengaturan proses</h3>
+          </div>
+
+          <div class="options">
+            <fieldset class="device-setting">
+              <legend>Perangkat</legend>
+              <div class="radio-row">
+                <label class="radio"><input type="radio" name="device" value="gpu"> <span class="radio-dot"></span> GPU <span id="gpu-note" class="badge-recommend"></span></label>
+                <label class="radio"><input type="radio" name="device" value="cpu" checked> <span class="radio-dot"></span> CPU</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Bahasa</legend>
+              <select id="lang">
+                <option value="auto">Deteksi otomatis</option>
+                <option value="id">Indonesia</option>
+                <option value="en">English</option>
+              </select>
+              <span class="note">Indonesia / Inggris</span>
+            </fieldset>
+            <fieldset>
+              <legend>Pembicara</legend>
+              <select id="num-speakers">
+                <option value="">Deteksi otomatis</option>
+                <option>1</option><option>2</option><option>3</option>
+                <option>4</option><option>5</option><option>6</option>
+              </select>
+              <span class="note">Kenali pembicara secara otomatis</span>
+            </fieldset>
+          </div>
+
+          <p class="limits" id="limits">Memuat info perangkat…</p>
+
+          <hr class="divider">
+
+          <div class="submit-row">
+            <span class="caption">Satu video diproses dalam satu waktu.</span>
+            <button id="process" class="primary" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              Proses video
+            </button>
+          </div>
+
+          <p id="error" class="error hidden" role="alert"></p>
+        </section>
+      </div>
+
+      <!-- ====== OUTPUT GUIDANCE (aside) ====== -->
+      <aside class="col-aside">
+        <p class="aside-eyebrow">HASIL PEMROSESAN</p>
+        <h3 class="aside-title">Output video</h3>
+        <hr class="divider">
+
+        <div class="output-item">
+          <div>
+            <h4>Transkrip</h4>
+            <p>Percakapan lengkap dengan waktu dan label pembicara.</p>
+          </div>
+        </div>
+        <div class="output-item">
+          <div>
+            <h4>Kesimpulan</h4>
+            <p>Inti pembahasan dalam satu rangkuman yang mudah dibaca.</p>
+          </div>
+        </div>
+        <div class="output-item">
+          <div>
+            <h4>Poin penting</h4>
+            <p>Temukan bagian utama dan lompat ke waktunya di video.</p>
+          </div>
+        </div>
+
+        <div class="local-note">
+          <span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="12" x2="2" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg></span>
+          <h4>Pemrosesan lokal</h4>
+          <p>Transkripsi dan ringkasan diproses lokal. Koneksi internet hanya digunakan untuk mengunduh video dari YouTube.</p>
+        </div>
+      </aside>
+    </div>
+    </div>
+    <!-- ====== /VIEW: SUMBER ====== -->
+
+    <!-- ====== VIEW: PROSES ====== -->
+    <div id="process-view" class="hidden">
+      <div class="page-intro">
+        <h2>Memproses video</h2>
+        <p>Biarkan halaman ini tetap terbuka. VidNote akan menampilkan hasil setelah semua tahap selesai.</p>
+      </div>
+
+      <div id="progress-area" class="progress-grid">
+        <div class="progress-main">
+          <div class="progress-summary">
+            <div class="status-row">
+              <span class="status-badge"><span class="status-dot"></span>SEDANG PROSES</span>
+              <span id="stage-counter" class="status-step">Tahap 1 dari 7</span>
+            </div>
+            <div class="progress-value">
+              <span id="progress-pct">0%</span>
+              <span id="progress-label"></span>
+            </div>
+            <div class="bar"><div id="bar-fill"></div></div>
+            <p id="stage-desc" class="stage-desc"></p>
+          </div>
+
+          <div class="job-details">
+            <div class="job-source">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+              <span id="job-source-label">Video dari YouTube</span>
+            </div>
+            <p id="job-source-value" class="job-source-value"></p>
+            <hr class="divider">
+            <div class="job-row"><span class="job-key">Perangkat</span><span id="job-device" class="job-val"></span></div>
+            <div class="job-row"><span class="job-key">Bahasa</span><span id="job-lang" class="job-val"></span></div>
+            <div class="job-row"><span class="job-key">Pembicara</span><span id="job-speakers" class="job-val"></span></div>
+          </div>
+
+          <div class="device-caution">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 2 3 10h5l-1 12 10-14h-6l2-6z"/></svg>
+            <div>
+              <p class="caution-title">Colok charger, pastikan ventilasi baik.</p>
+              <p class="caution-sub">Proses deep learning cukup berat untuk perangkatmu.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-stages">
+          <div class="section-heading">
+            <h3>Tahapan proses / Status</h3>
+            <span class="hint">Berjalan berurutan</span>
+          </div>
+          <hr class="divider">
+          <ol id="stages" class="stages"></ol>
+          <div class="cancel-row">
+            <span class="caption">Video baru bisa diproses setelah pekerjaan ini selesai.</span>
+            <button id="cancel" class="danger">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              Batalkan proses
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ====== /VIEW: PROSES ====== -->
+
+    <!-- ====== VIEW: HASIL ====== -->
+    <div id="result-card" class="hidden">
+      <div class="page-intro">
+        <p class="eyebrow">HASIL DAN CATATAN</p>
+        <h2>Hasil video</h2>
+        <p>Video dengan subtitle, transkrip per pembicara, dan ringkasan otomatis.</p>
+      </div>
+
+      <div class="result-top">
+        <!-- Kiri: video + unduhan + sumber -->
+        <div class="result-media">
+          <video id="player" controls playsinline crossorigin="use-credentials"></video>
+          <p id="preview-note" class="note"></p>
+          <div class="downloads">
+            <a id="dl-video" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              Unduh video hardsub
+            </a>
+            <a id="dl-srt" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 11h2m-2 3h8m2 0h2m-6-3h4"/></svg>
+              Unduh subtitle
+            </a>
+          </div>
+          <div class="source-link">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+            <a id="source-link" href="#" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+
+        <!-- Kanan: transkrip -->
+        <div id="transcript-box" class="result-transcript">
+          <h3>Transkrip</h3>
+          <div id="transcript"></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Kesimpulan -->
+      <div id="summary-box" class="result-conclusion">
+        <h3>Kesimpulan</h3>
+        <p id="summary-conclusion"></p>
+      </div>
+
+      <hr class="divider">
+
+      <!-- Poin penting -->
+      <div class="result-points">
+        <h3>Poin penting</h3>
+        <ul id="summary-points"></ul>
+        <p class="notes-lang">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          Catatan mengikuti bahasa video asli.
+        </p>
+      </div>
+    </div>
+    <!-- ====== /VIEW: HASIL ====== -->
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
